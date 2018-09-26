@@ -1,0 +1,78 @@
+<style>
+.animated, canvas:hover {
+    -webkit-transform: rotate(2880deg);
+    -webkit-transition: -webkit-transform 8s ease-out;
+}
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css" integrity="sha256-mAmp1v6ERknmeP2oHZG53W1L+zOdSVsM25WvmZ4U+fU=" crossorigin="anonymous" />
+
+<div></div>
+  <script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js" integrity="sha256-0Uz1UklrpANuwqJ7M0Z54jiOE/GZwlp2EBSC6slw6j8=" crossorigin="anonymous"></script>
+<script>
+function shuffle(array) {
+  var currentIndex = array.length, temporaryValue, randomIndex;
+
+  // While there remain elements to shuffle...
+  while (0 !== currentIndex) {
+
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+
+    // And swap it with the current element.
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+
+  return array;
+}
+  var canvas = document.createElement("canvas");  
+  document.body.appendChild(canvas);
+  canvas.width = canvas.height = 500;
+  var cx = canvas.getContext("2d");
+  var data = [0,1,2,3,4,5,6,7,8,9];
+  var colors = [ '#ffff00', '#ffc700', '#ff9100', '#ff6301', '#ff0000', '#c6037e',
+               '#713697', '#444ea1', '#2772b2', '#0297ba', '#008e5b', '#8ac819' ];
+  colors = shuffle(colors)
+  var sliceAngle = 2*Math.PI/data.length;
+  var startAngle = -Math.PI/2 - 0.3;
+  cx.lineWidth = 6;
+  cx.arc(canvas.width/2, canvas.height/2, 240, 0, 7);
+  cx.stroke();
+
+  for (var i = 0; i < data.length; i++, startAngle += sliceAngle) {
+    cx.beginPath();
+    cx.fillStyle = colors[i%colors.length];
+    console.log(cx.fillStyle);
+    cx.arc(canvas.width/2, canvas.height/2, 237, startAngle, startAngle+sliceAngle);
+    cx.lineTo(canvas.width/2, canvas.height/2);
+    cx.closePath();
+    cx.lineWidth = 2;
+    cx.stroke();
+    cx.fill();
+    cx.save();
+    cx.font = "14px Arial";
+    cx.translate(canvas.width/2,canvas.height/2);
+    cx.rotate(startAngle +Math.PI/2 + 0.3);
+    cx.fillStyle = "black";
+    cx.translate(0,-80);
+    cx.rotate(-Math.PI/2);
+    cx.textBaseline = "middle";
+    cx.fillText(String(i),0,0);
+    // cx.fillText(String(i), 0, -80);
+    cx.restore();
+  }
+  cx.beginPath();
+  cx.arc(canvas.width/2, canvas.height/2, 10, 0, 7);
+  cx.fillStyle = "white";
+  cx.strokeStyle = "black";
+  cx.stroke();
+  cx.fill();
+
+
+</script>

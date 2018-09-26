@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Jackpot</title>
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css" integrity="sha256-mAmp1v6ERknmeP2oHZG53W1L+zOdSVsM25WvmZ4U+fU=" crossorigin="anonymous" />
+
+  <style>
+  .animatedWheel{
+    transform: rotate(2880deg);
+    transition: transform 8s ease-out;
+}
+#pointerSpan{
+  position:absolute;
+  left:230px;top:-20px;
+  display: inline-block;
+  min-height: 40px;
+  min-width: 40px;
+  background: white;
+  border: 2px solid black;
+  transform: rotate(45deg);
+  z-index: 9999999999999;
+  border-radius: 0 20px;
+}
+.jconfirm-title-c{
+  text-align: center;
+  font-size: 2rem;
+}
+.jconfirm-title{
+  font-size: 14px!important;
+  font-family: monospace !important;
+}
+    .container{
+      max-width: 80%;
+    }
+    h1{
+      text-align: center;
+      font-size: 3em;
+      /*font-weight: bold;*/
+      font-family: Pacifico;
+    }
+    h2{
+      text-align: center;
+    }
+    th{
+      text-transform: uppercase;
+    }
+    .btn {
+      width:100%;
+      font-size: 1.6em;
+    }
+    input[type="number"] {
+      font-size: 1.6em;
+    }
+    #contractAddress{
+      font-size: 2rem!important;
+    }
+    .spinnerParent{
+      overflow: hidden;
+      max-width: 500px;
+      min-height: 100px;
+      border:1px solid black;
+      position: relative;
+    }
+    .spinPointer{
+      position: absolute;
+      transform: rotate(45deg);
+      min-height: 50px;
+      min-width: 50px;
+      background: white;
+      border: 2px solid black;
+      /*border-radius: 0 50%;*/
+      left: 220px;
+      /*bottom:-10px;*/
+    }
+    .box{
+      box-sizing: border-box;
+      display: inline-block;
+      min-height: 100px;
+      min-width: 100px;
+      margin:0; padding:10px;
+      padding-top:40px;
+      border:1px solid black;
+      border-right: none;
+      border-top:none;border-bottom: none;
+      color: white;
+      text-shadow: 1px 1px 2px black;
+    }
+    .box:first-child{
+
+    }
+    .spinner{
+      min-width: 10000px;
+    }
+    .animated {
+        transform: translateX(-5670px);
+        transition: transform 8s ease-out;
+    }
+  </style>
+  <script>
+    // change contract address
+    var contractAddress = "0x173BbA524e52D5b3CEc141b67fd9f733ee409220";
+  </script>
+</head>
+<body>
+  <div class="container">
+    <h1>Jackpot<span id="eth-balance"></span></h1>
+    <center>
+    <h3>Send Ether to the Contract Address (<code id="contractAddress"></code>) to have a chance of winning the Jackpot, please send a minimum of 0.01 ETH.</h3>
+  </center>
+    <br />
+    <br />
+     <form id="contribute-form" class="form-group row">
+      <div class="col-xs-6">
+        <input 
+          value="0.01" 
+          class="form-control input-lg" 
+          required 
+          type="number"
+          name="amountOfETH"
+          id="amountOfETH" 
+          min="0.01"
+          step="0.01"  
+          placeholder="Amount of ETH"
+          title="Amount of ETH"
+           />
+      </div>
+      <div class="col-xs-6">
+        <button type="submit" class="btn btn-primary">Contribute /w MetaMask</button>
+      </div>
+    </form>
+    <br />
+    <div>
+      
+    </div>
+    <div class="row">
+      <div class="col-xs-3">
+        <h2>My Tickets</h2>
+        <div id="myTickets"></div>
+      </div>
+      <div class="col-xs-9">
+        <h2>Players</h2>
+        <div id="table"></div>
+      </div>
+    </div>
+    
+  </div>
+  <script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js" integrity="sha256-0Uz1UklrpANuwqJ7M0Z54jiOE/GZwlp2EBSC6slw6j8=" crossorigin="anonymous"></script>
+  <script src="dapp.js"></script>
+</body>
+</html>

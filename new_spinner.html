@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>new spinner</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css" integrity="sha256-mAmp1v6ERknmeP2oHZG53W1L+zOdSVsM25WvmZ4U+fU=" crossorigin="anonymous" />
+    <script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js" integrity="sha256-0Uz1UklrpANuwqJ7M0Z54jiOE/GZwlp2EBSC6slw6j8=" crossorigin="anonymous"></script>
+  <style>
+    .spinnerParent{
+      overflow: hidden;
+      max-width: 600px;
+      min-height: 100px;
+      border:1px solid black;
+      position: relative;
+    }
+    .spinPointer{
+      position: absolute;
+      transform: rotate(45deg);
+      min-height: 50px;
+      min-width: 50px;
+      background: white;
+      border: 2px solid black;
+      /*border-radius: 0 50%;*/
+      left: 220px;
+      /*bottom:-10px;*/
+    }
+    .box{
+      box-sizing: border-box;
+      display: inline-block;
+      min-height: 100px;
+      min-width: 100px;
+      margin:0; padding:10px;
+      padding-top:40px;
+      border:1px solid black;
+      border-right: none;
+      border-top:none;border-bottom: none;
+      color: white;
+      text-shadow: 1px 1px 2px black;
+    }
+    .box:first-child{
+
+    }
+    .spinner{
+      min-width: 10000px;
+    }
+    .animated {
+        transform: translateX(-5840px);
+        transition: transform 8s ease-out;
+    }
+  </style>
+</head>
+<body>
+<script>
+
+function shuffle(array) {
+  var currentIndex = array.length, temporaryValue, randomIndex;
+
+  // While there remain elements to shuffle...
+  while (0 !== currentIndex) {
+
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+
+    // And swap it with the current element.
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+
+  return array;
+}
+
+var addresses = [
+"0x4b956225b42dab956ff4b8f83f82e203785d2ad6",
+"0xa718a8bf108ff04a0df422b437af354436e3f68c",
+"0xc078e05f1dc1540ce296f8185db5faac3742c342",
+"0xc8241fadae3781fc8e2a5df29e261f1abe5232d8",
+"0xd095c108f12fb2e1e291ac8d81590f9c22c45b1b",
+"0x6e8538dee72e40642d4d03ea9754db4b169615a6",
+"0x31d084468eef0dd6c940f9a7d0c6945d81ce6148",
+"0x38a6ed879684db7e2b64cbe2d9488e96dbd28939",
+"0x7cfedf683572a838adf72724a19bb3e95c5dc4e9",
+"0x185733dfdfba0c2535262522eba137cbf2c5c7ac"
+];
+function showLinearSpinner(addresses){
+var addrs = addresses.slice();
+var ticket = addresses.ticket;
+var winner = addresses[0];
+for (var i = 0; i < 5; i++) {
+  addresses = addresses.concat(addrs);
+}
+addresses[48] = winner;
+
+var spinnerParent  = $('<div class="spinnerParent"></div>');
+var spinner = $('<div class="spinner"></div>');
+var spinPointer = $('<div class="spinPointer"></div>');
+spinnerParent.append(spinner);
+spinnerParent.append(spinPointer);
+
+
+var colors = [ '#ffff00', '#ffc700', '#ff9100', '#ff6301', '#ff0000', '#c6037e',
+               '#713697', '#444ea1', '#2772b2', '#0297ba', '#008e5b', '#8ac819' ];
+colors = shuffle(colors);
+
+function box(address, color) {
+  var b = $('<div class="box"></div>');
+  b.html(address.slice(0,12)+'...');
+  b.css("background",color);
+  return b;
+}
+
+addresses.forEach(function(address, i) {
+  spinner.append(box(address,colors[i%colors.length]));
+});
+
+  $.alert({
+    useBootstrap:false,
+    content:spinnerParent,
+    animateFromElement:false,
+    title:"    ",
+    boxWidth:"530px",
+    onOpenBefore: function () {
+        // before the modal is displayed.
+        window.alertBox = this;
+    },
+  });
+setTimeout(function(){$(".spinner").addClass("animated")},50);
+    NETWORK = 4;
+    setTimeout(function(){
+      alertBox.setTitle((
+        '<a target="_blank" href="https://'+(NETWORK == "4"?"rinkeby.":"") 
+        +'etherscan.io/address/'+winner + '">'+winner+'</a>'
+        +" #"+ticket) || "LAVI!");
+    },8000);
+
+
+}
+</script>
+</body>
+</html>
