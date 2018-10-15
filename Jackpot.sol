@@ -1,6 +1,7 @@
 pragma solidity 0.4.20;
 import "github.com/oraclize/ethereum-api/oraclizeAPI.sol";
 
+
 /**
  * @title SafeMath
  * @dev Math operations with safety checks that throw on error
